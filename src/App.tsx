@@ -851,12 +851,12 @@ function App() {
   const [smartContextDescription, setSmartContextDescription] = useState(
     starterSmartContextDescription
   )
-  const [scRows, setScRows] = useState<SmartContextRow[]>([])
+  const [, setScRows] = useState<SmartContextRow[]>([])
   const [smartContextSections, setSmartContextSections] =
     useState<SmartContextSection[]>([])
   const [finderRows, setFinderRows] = useState<FinderRow[]>([])
-  const [scError, setScError] = useState('')
-  const [finderError, setFinderError] = useState('')
+  const [, setScError] = useState('')
+  const [, setFinderError] = useState('')
 
   // Technical Configuration JSON editor UI
   const [smartContextConfigs, setSmartContextConfigs] =
@@ -900,11 +900,13 @@ function App() {
     setLoginLoading(true)
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), token }),
-      })
+      const response = await fetch(
+        `${import.meta.env.DEV ? '' : 'https://application-analysis-outcome-builder.onrender.com'}/api/auth/login`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email.trim(), token }),
+        })
 
       const data = await response.json()
 
